@@ -1,5 +1,11 @@
+import pandas as pd
+import argparse
+import hashlib
+
 def log_in(username, password):
     
+    df = pd.read_csv("/Users/rita/Desktop/LAB/db_users.csv", delimiter =";")
+	
     
     for name in df["username"]:
         if name == username:
