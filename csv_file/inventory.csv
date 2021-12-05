@@ -1,6 +1,6 @@
-,Unnamed: 0,Metal,Quantity,Price
-0,0,Gold,9990,55.559
-1,1,Silver,10000,0.703
-2,2,Palladium,10000,54.513
-3,3,Platinum,10000,28.969
-4,4,Rhodium,10000,436.163
+Metal,Quantity,Price
+Gold,20,55.57098179749999
+Silver,10000,0.703
+Palladium,10000,54.513
+Platinum,10000,28.969
+Rhodium,10000,436.163

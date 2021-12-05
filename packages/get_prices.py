@@ -7,7 +7,7 @@ def get_prices():
   access_key = 'o65ww2g1zd18fqm7euy9h2at766a9amft1r6srflwfle1gqu6lx029fshbfu'
 
   resp = requests.get('https://metals-api.com/api/'+endpoint+'?access_key='+access_key+'&base='+base_currency+'&symbols='+symbol)
-
+  s = resp.json()['success']
   rates=resp.json()['rates']
 
   oz=28.3495
@@ -23,4 +23,4 @@ def get_prices():
   for key in rates.keys():
     prices[conversion[key]]=rates[key]/oz
   
-  return(prices)
+  return(s,prices)
