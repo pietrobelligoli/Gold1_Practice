@@ -18,11 +18,11 @@ def buy_metal(client,metal,quantity):
         #Say that we don't trade the metal
         print ('We are sorry, the metal that you want to buy is not traded by us. \n You can buy from us Gold, Silver, Platinum, Palladium and Rhodium')
    
-   elif quantity > 10000:
+    elif quantity > 10000:
         #Say if the quantity requested is too much
         print('We are sorry, we are not able to supply you this amount of ', metal, '. We can supply you at most 10 kg')
    
-   else:
+    else:
    
         #Metal and quantity are ok, we open the wallet
    
@@ -99,14 +99,27 @@ def buy_metal(client,metal,quantity):
                 time.sleep(5)
                 print('Thank you so much, you have just bought ', quantity, 'g of ', metal, ' at the price of ', p, ' EUR')
             
-            #Register transaction, to be finished
-            
-            today = date.today()
+        #Register transaction, first open the register
+        
+        register = pd.read_csv (r'csv_file/register.csv')
+        today = date.today()
 
-            # dd/mm/YY
-            d1 = today.strftime("%d/%m/%Y")
+        # dd/mm/YY
+        d1 = today.strftime("%d/%m/%Y")
+        
+        #Create a new row
+        
+        add = pd.DataFrame(columns=['Customer', 'Date', 'Metal', 'Quantity', 'Price'])
+        add.loc[0] = [client,d1,metal,quantity,p]
+         
+        #Add the new row
+        
+        register = register.append(add, ignore_index=True)
+
+        #Close the register
+        register.to_csv(r'csv_file/register.csv', index=False)
             
     df.to_csv(r'csv_file/inventory.csv', index=False)
     w.to_csv(r'csv_file/wallet.csv', index=False)
 
-buy_metal('Prova','Gold',5)
+buy_metal('Prova','Silver',5)
