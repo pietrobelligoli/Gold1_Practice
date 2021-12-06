@@ -1,4 +1,6 @@
 # FUNCTION LOG-IN
+import pandas as pd
+import hashlib
 
 def log_in(email, password):
     
