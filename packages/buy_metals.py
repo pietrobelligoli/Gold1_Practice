@@ -77,6 +77,19 @@ def buy_metal(client,metal,quantity):
                 p2 = round(new[metal],3)
                 q2 = 10000 - q1
                 
+                #Control if we have enough cash
+                
+                loan = False
+                
+                if w.loc[0,'Balance'] < (p2 * q2):
+                    
+                    #Ask a loan to be able to buy the new metals 
+                    
+                    loan = True
+                    delta = (p2 * q2) - w.loc[0,'Balance']
+                    w.loc[0,'Bank_Loan'] = w.loc[0,'Bank_Loan'] + delta 
+                    w.loc[0,'Balance'] = w.loc[0,'Balance'] + delta
+                    
                 #Calculate the weighted mean of the price and update it
                 
                 new_p = ((p1 * q1) + (p2 * q2)) / 10000
@@ -101,6 +114,7 @@ def buy_metal(client,metal,quantity):
                 time.sleep(5)
                 print('Thank you so much, you have just bought ', quantity, 'g of ', metal, ' at the price of ', p, ' EUR')
             
+                        
         #Register transaction, first open the register
         
         register = pd.read_csv (r'csv_file/register.csv')
@@ -120,7 +134,25 @@ def buy_metal(client,metal,quantity):
 
         #Close the register
         register.to_csv(r'csv_file/register.csv', index=False)
+    
+    #Control if there are bank loan to be repaid
+    
+    if w.loc[0,'Bank_Loan'] > 0:
+
+        if w.loc[0,'Bank_Loan'] <= w.loc[0,'Balance']:
             
+            #Pay all the bank loan
+            
+            w.loc[0,'Balance'] = w.loc[0,'Balance'] - w.loc[0,'Balance']
+            w.loc[0,'Bank_Loan'] = 0
+        
+        else:
+            
+            #Gives all the money we have to repay part of the bank loan
+            
+            w.loc[0,'Bank_Loan'] = w.loc[0,'Bank_Loan'] - w.loc[0,'Bank_Loan']
+            w.loc[0,'Balance'] = 0
+        
     df.to_csv(r'csv_file/inventory.csv', index=False)
     w.to_csv(r'csv_file/wallet.csv', index=False)
 
