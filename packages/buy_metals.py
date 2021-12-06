@@ -1,5 +1,7 @@
 from get_prices import get_prices
 import time
+
+
 def buy_metal(client,metal,quantity):
     import pandas as pd
     from datetime import date
