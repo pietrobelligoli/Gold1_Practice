@@ -389,16 +389,16 @@ def add_employee(email, password):
 
             if check == False:     
                 presence = False
-                for mail in df_employees["Email"]:
+                for mail in df_employees["email"]:
                     if email == mail:
                         presence = True
                         print('Your email allows you to register as an employee. \n')
-                        check = check_password(password)
-                        if check == True:
+                        password_check = check_password(password)
+                        if password_check == True:
                             digest_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
                             new_df = pd.DataFrame({"email": [email], "password": [digest_password]})
                             db_employees = db_employees.append(new_df)
-                            db_employees.to_csv(r'csv_file/employees.csv', index = False)
+                            db_employees.to_csv(r'csv_file/db_employees.csv', index = False)
                             print("Registration was successful!. \n")
                         
                         break
@@ -411,5 +411,5 @@ def add_employee(email, password):
         print(str(e))
                         
 log_in("francesca.signorello@gold1.com", "Sushi<3")
-add_user("pietro.belligoli@gmail.com", "HAPPY")                       
-add_employee("marco.visentin@gmail.com", "HAPPY")
+add_user("pietro.belligoligmail.com", "HAPPY")                       
+add_employee("marco.visentin@gold1.com", "HAPPY")
