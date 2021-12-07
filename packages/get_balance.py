@@ -9,6 +9,3 @@ def get_balance():
     
     # Cash available
     print('\nCash available:', df_wallet.loc[0,'Balance'])
-    
-    
-get_balance()

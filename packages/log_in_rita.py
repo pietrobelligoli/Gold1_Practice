@@ -448,10 +448,5 @@ def add_employee(email, password):
                     print("We are sorry, this email is not allowed to register as an employee. \n")
                     
     except EmailNotValidError as e:
-        print(str(e))
-                        
-check=log_in("a@gold1.com", "Hounidea!!")
-add_user("pietro.belligoli@gmail.com", "HAPPY")                       
-add_employee("marco@gold1.com", "HAPPY")
-
-print(check)
+    
+        print(str(e))                      

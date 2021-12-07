@@ -35,4 +35,3 @@ def pay_loan():
             print('You have just paid', amount, 'EUR to the bank, but you still have a debt of', w.loc[0,'Bank_Loan'], 'EUR')
         
         w.to_csv(r'csv_file/wallet.csv', index=False)
-pay_loan()

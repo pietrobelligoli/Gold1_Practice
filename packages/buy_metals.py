@@ -1,4 +1,4 @@
-from get_prices import get_prices
+from packages.get_prices import get_prices
 import time
 
 
@@ -136,5 +136,3 @@ def buy_metal(client,metal,quantity):
         
     df.to_csv(r'csv_file/inventory.csv', index=False)
     w.to_csv(r'csv_file/wallet.csv', index=False)
-
-buy_metal('Prova','Silver',5)
