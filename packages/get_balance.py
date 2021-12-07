@@ -5,10 +5,10 @@ def get_balance():
 
     # Inventory balance
     for i in range(0,len(df_inventory)):
-        print(df_inventory.iloc[i]['Metals'], 'balance:', df_inventory.iloc[i]['Quantity'], 'grams.')
+        print(df_inventory.loc[i,'Metals'], 'balance:', df_inventory.loc[i,'Quantity'], 'grams.')
     
     # Cash available
-    print('\nCash available:', df_wallet.iloc[0]['Balance'])
+    print('\nCash available:', df_wallet.loc[0,'Balance'])
     
     
 get_balance()
