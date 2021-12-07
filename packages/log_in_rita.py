@@ -377,7 +377,7 @@ def add_user(email, password):
                     db_users.to_csv(r'csv_file/db_users.csv', index = False)
                     
                     info = pd.read_csv(r'csv_file/info_users.csv')
-                    new = pd.DataFrame({ "ID": [len(info["ID"])+1], "number": [number], "date": [date], "cvc": [cvc]})
+                    new = pd.DataFrame({ "ID": [len(info["ID"])+1], "email" : email,"number": [number], "date": [date], "cvc": [cvc]})
                     info = info.append(new)
                     info.to_csv(r'csv_file/info_users.csv', index = False)
                         
