@@ -9,56 +9,81 @@ def log_in(email, password):
     db_employees = pd.read_csv(r'csv_file/db_employees.csv')
     db_users = pd.read_csv(r'csv_file/db_users.csv')
     
-    suffix = email.split("@")[1]
-   
-    #employees
-    if suffix == "gold1.com":
-        
-        for address in db_employees["email"]:
-            if address == email:
-                line = list(db_employees["email"]).index(address)
-                digest_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-                if db_employees["password"][line] == digest_password:
-                    print("Access allowed")
-                    break
+    #Check if the email is valid
+    
+    r = None
+    
+    try: 
+        valid = validate_email(email)
+        email = valid.email
+    
+        suffix = email.split("@")[1]
+       
+        #Check if the people that want to log in is a employee
                 
-                else:
-                    print("Please check password")
-                    break
-                
-                
-            elif address != email and list(db_employees["email"]).index(address) == len(db_employees["email"])-1:
-                print("Please, log-in as a user")
+        if suffix == "gold1.com":
             
-                
-            else: 
-                continue
-        
-      
-    #users   
-    else: 
-      
-        for mail in db_users["email"]:
-            if mail == email:
-                line = list(db_users["email"]).index(mail)
-                digest_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-                if db_users["password"][line] == digest_password:
-                    print("Access allowed")
-                    break
-                
-                else:
-                    print("Please check password")
-                    break
-                
-                
-            elif mail != email and list(db_users["email"]).index(mail) == len(db_users["email"])-1:
-                print("No correspondence")
+            #Employee
             
+            for address in db_employees["email"]:
                 
-            else: 
-                continue
+                #Check the presence of the email
+                if address == email:
+                    line = list(db_employees["email"]).index(address)
+                    digest_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+                    
+                    #Check if the password is correct
+                    
+                    if db_employees["password"][line] == digest_password:
+                        print("Access allowed")
+                        r = 'employee'
+                        break
+                    
+                    else:
+                        print("Please check password")
+                        break
+                    
+                #Print a message if the suffix is gold1.com but the employee is not registered
+                
+                elif address != email and list(db_employees["email"]).index(address) == len(db_employees["email"])-1:
+                    print("We are sorry, but your employee account does not exist. Please register to our website before log in")
+                
+                    
+                else: 
+                    continue
             
-            
+          
+        #users   
+        else: 
+          
+            for mail in db_users["email"]:
+                
+                #Check if the email match
+                
+                if mail == email:
+                    line = list(db_users["email"]).index(mail)
+                    digest_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+                    
+                    #Check if the password match
+                    
+                    if db_users["password"][line] == digest_password:
+                        print("Access allowed")
+                        r = 'user'
+                        break
+                    
+                    else:
+                        print("Please check password")
+                        break
+                    
+                #Print a different message if the email is not in our register
+                
+                elif mail != email and list(db_users["email"]).index(mail) == len(db_users["email"])-1:
+                    print("We are sorry but your account does not exist. Please register yourself before log in")
+
+    
+    except EmailNotValidError as e:
+                print(str(e))        
+    return r        
 
 
 # A LOT OF PASSWORDS TO CHECK THE INPUT OF CREDIT CARDS
@@ -194,7 +219,7 @@ def get_date():
                 d1 = today.strftime("%d/%m/%Y")
                 ay=d1[6:]
                 
-                if len(m) <= 2 and len(y) == 4 and nm > 0 and nm < 13 and ny >= 2021 and ny < (ay + 6):
+                if len(m) <= 2 and len(y) == 4 and nm > 0 and nm < 13 and ny >= ay and ny < (ay + 6):
                     
                     #Check if the card is valid but expires this year
                     
@@ -372,29 +397,44 @@ def add_employee(email, password):
     df_employees = pd.read_csv(r'csv_file/employees.csv')
     db_employees = pd.read_csv(r'csv_file/db_employees.csv')
     
+    #Check if the mail is valid format
+    
     try: 
         valid = validate_email(email)
         email = valid.email
+        
+        #Check if the domain is the correct one
         
         if "@gold1.com" not in email:
             print("Please enter an employee email. \n")
 
         else:
             check = False
+            
+            #Check if the employee is already registered
+            
             for mail in db_employees["email"]:
                 if mail == email:
                     check = True
                     print("This account is already registered. \n")
                     break
 
+            #Check if the email is in the one allowed to register as an emplyee
+            
             if check == False:     
                 presence = False
                 for mail in df_employees["email"]:
                     if email == mail:
                         presence = True
                         print('Your email allows you to register as an employee. \n')
+                        
+                        #Ask the employee to confirm the password he want to use
+                        
                         password_check = check_password(password)
                         if password_check == True:
+                            
+                            #Register the employee
+                            
                             digest_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
                             new_df = pd.DataFrame({"email": [email], "password": [digest_password]})
                             db_employees = db_employees.append(new_df)
@@ -405,11 +445,13 @@ def add_employee(email, password):
                         
 
                 if presence == False: 
-                    print("No correspondence. \n")
+                    print("We are sorry, this email is not allowed to register as an employee. \n")
                     
     except EmailNotValidError as e:
         print(str(e))
                         
-log_in("francesca.signorello@gold1.com", "Sushi<3")
-add_user("pietro.belligoligmail.com", "HAPPY")                       
-add_employee("marco.visentin@gold1.com", "HAPPY")
+check=log_in("a@gold1.com", "Hounidea!!")
+add_user("pietro.belligoli@gmail.com", "HAPPY")                       
+add_employee("marco@gold1.com", "HAPPY")
+
+print(check)
