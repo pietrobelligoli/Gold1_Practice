@@ -47,6 +47,7 @@ elif adduser == True:
     add_user(username,password)
 else:
     log=log_in(username,password)
+    
 if log != None:
     if log == 'employee':
         s=False
