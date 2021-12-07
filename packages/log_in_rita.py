@@ -35,12 +35,12 @@ def log_in(email, password):
                     #Check if the password is correct
                     
                     if db_employees["password"][line] == digest_password:
-                        print("Access allowed")
+                        print("Access allowed. \n")
                         r = 'employee'
                         break
                     
                     else:
-                        print("Please check password")
+                        print("Please check password. \n")
                         break
                     
                 #Print a message if the suffix is gold1.com but the employee is not registered
@@ -67,12 +67,12 @@ def log_in(email, password):
                     #Check if the password match
                     
                     if db_users["password"][line] == digest_password:
-                        print("Access allowed")
+                        print("Access allowed. \n")
                         r = 'user'
                         break
                     
                     else:
-                        print("Please check password")
+                        print("Please check password. \n")
                         break
                     
                 #Print a different message if the email is not in our register

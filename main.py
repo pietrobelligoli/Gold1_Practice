@@ -33,41 +33,47 @@ username=arg.username
 password=arg.password
 metal=arg.buy_metal
 grams=arg.buy_grams
-add_user=arg.add_user
-add_employee=arg.add_employee
-read_register=arg.read_register
-get_balance=arg.get_balance
-pay_bank=arg.pay_bank
+adduser=arg.add_user
+addemployee=arg.add_employee
+rr=arg.read_register
+gb=arg.get_balance
+pb=arg.pay_bank
 
 log = None
-
-if add_employee == True:
+print('\n')
+if addemployee == True:
     add_employee(username,password)
-elif add_user == True:
+elif adduser == True:
     add_user(username,password)
 else:
     log=log_in(username,password)
 if log != None:
     if log == 'employee':
         s=False
-        if read_register:
+        if rr:
             read_register()
             s=True
-        if get_balance:
+        if gb:
             get_balance()
             s=True
-        if pay_bank:
+        if pb:
             pay_loan()
             s=True
-        if s == False:
-            print('You succesfully logged in as a employee, but you have to type other arguments to do something')
-            
+        
+        if metal != None or grams != None:
+            print('Sorry but as an employee you are not allowed to buy metals from our company. \n')
+        elif s == False:
+            print('You succesfully logged in as a employee, but you have to type other arguments to do something. \n')
+        
     elif log == 'user':
         if metal == None:
-            print('To buy metals you have to specify them using --buy_metal')
+            print('To buy metals you have to specify them using --buy_metal. \n')
         elif grams == None:
-            print('To buy metals you have to specify the grams you want using --buy_grams')
+            print('To buy metals you have to specify the grams you want using --buy_grams. \n')
         else:
             metal = metal.lower()
             newmetal = metal[:1].upper()+metal[1:]
             buy_metal(username,newmetal,grams)
+            
+        if rr == True or gb == True or pb == True:
+            print('You tried to call a function that your user is not allowed to lunch. As a user you are only allowed to buy metals from our company. \n')

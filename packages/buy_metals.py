@@ -18,11 +18,11 @@ def buy_metal(client,metal,quantity):
             
     if presence == False:
         #Say that we don't trade the metal
-        print ('We are sorry, the metal that you want to buy is not traded by us. \n You can buy from us Gold, Silver, Platinum, Palladium and Rhodium')
+        print ('We are sorry, the metal that you want to buy is not traded by us. \n You can buy from us Gold, Silver, Platinum, Palladium and Rhodium. \n')
    
-    elif quantity > 10000:
+    elif quantity > 1000:
         #Say if the quantity requested is too much
-        print('We are sorry, we are not able to supply you this amount of ', metal, '. We can supply you at most 10 kg')
+        print('We are sorry, we are not able to supply you this amount of ', metal, '. We can supply you at most 10 kg. \n')
    
     else:
    
@@ -50,13 +50,13 @@ def buy_metal(client,metal,quantity):
             
             #Succesful transaction
             
-            print('Thank you so much, you have just bought ', quantity, 'g of ', metal, ' at the price of ', p, ' EUR')
+            print('Thank you so much, you have just bought ', quantity, 'g of ', metal, ' at the price of ', p, ' EUR. \n')
         
         else:
             
             #Buy new metal to have the inventory full
             
-            print('We are buying new metals for you, wait some seconde please')
+            print('We are buying new metals for you, wait some seconde please. \n')
             
             #Call the function get prices to call the API and buy new metal at the actual price
             
@@ -66,7 +66,7 @@ def buy_metal(client,metal,quantity):
             
             if success == False:
                 
-                print('We are sorry, because of an internal problem we are not able to buy enough metal now. If you make an order of at most', df.loc[i,'Quantity'], ' ', metal, ' we will be able to provide it to you')
+                print('We are sorry, because of an internal problem we are not able to buy enough metal now. If you make an order of at most', df.loc[i,'Quantity'], ' ', metal, ' we will be able to provide it to you. \n')
             
             else:
                 
@@ -75,28 +75,29 @@ def buy_metal(client,metal,quantity):
                 p1 = df.loc[i,'Price']
                 q1 = df.loc[i,'Quantity']
                 p2 = round(new[metal],3)
-                q2 = 10000 - q1
+                q2 = 1000 - q1
                 
                 #Control if we have enough cash
-                               
-                if w.loc[0,'Balance'] < round((q2 * p2),3):
+                
+                acq_price = round((q2 * p2),3)
+                if w.loc[0,'Balance'] < acq_price:
                     
                     #Ask a loan to be able to buy the new metals 
                     
-                    delta = round((q2 * p2),3) - w.loc[0,'Balance']
+                    delta = acq_price - w.loc[0,'Balance']
                     w.loc[0,'Bank_Loan'] = w.loc[0,'Bank_Loan'] + delta 
                     w.loc[0,'Balance'] = w.loc[0,'Balance'] + delta
                     
                 #Calculate the weighted mean of the price and update it
                 
-                new_p = ((p1 * q1) + (p2 * q2)) / 10000
+                new_p = round((((p1 * q1) + (p2 * q2)) / 1000),3)
                 df.loc[i,'Price'] = new_p
                 
                 #Register the cash outflow
                 
-                w.loc[0,'Outflow'] = w.loc[0,'Outflow'] + round((q2 * p2),3)
-                w.loc[0,'Balance'] = w.loc[0,'Balance'] - round((q2 * p2),3)                    
-                df.loc[i,'Quantity']  = 10000 - quantity
+                w.loc[0,'Outflow'] = w.loc[0,'Outflow'] + acq_price
+                w.loc[0,'Balance'] = w.loc[0,'Balance'] - acq_price                    
+                df.loc[i,'Quantity']  = 1000 - quantity
                 
                 #Calculate the selling price with a profit of 5%
                 
@@ -110,7 +111,7 @@ def buy_metal(client,metal,quantity):
                 #Succesful transaction
                 
                 time.sleep(5)
-                print('Thank you so much, you have just bought ', quantity, 'g of ', metal, ' at the price of ', p, ' EUR')
+                print('Thank you so much, you have just bought ', quantity, 'g of ', metal, ' at the price of ', p, ' EUR. \n')
             
                         
         #Register transaction, first open the register

@@ -5,6 +5,8 @@ def read_register():
     import pandas as pd
     register = pd.read_csv (r'csv_file/register.csv')
     
+    print('Register of transactions: \n')
+    
     #Print each line
     
     for i in range(len(register.index)):
