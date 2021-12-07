@@ -68,4 +68,6 @@ if log != None:
         elif grams == None:
             print('To buy metals you have to specify the grams you want using --buy_grams')
         else:
-            buy_metal(username,metal,grams)
+            metal = metal.lower()
+            newmetal = metal[:1].upper()+metal[1:]
+            buy_metal(username,newmetal,grams)

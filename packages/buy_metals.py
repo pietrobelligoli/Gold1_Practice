@@ -46,7 +46,7 @@ def buy_metal(client,metal,quantity):
             #Record on the wallet the cash inflow and new balance
             
             w.loc[0,'Inflow'] = w.loc[0,'Inflow'] + p
-            w.loc[0,'Balance'] = w.loc[0,'Inflow'] - w.loc[0,'Outflow']
+            w.loc[0,'Balance'] = w.loc[0,'Balance'] + p
             
             #Succesful transaction
             
@@ -79,11 +79,11 @@ def buy_metal(client,metal,quantity):
                 
                 #Control if we have enough cash
                                
-                if w.loc[0,'Balance'] < (p2 * q2):
+                if w.loc[0,'Balance'] < round((q2 * p2),3):
                     
                     #Ask a loan to be able to buy the new metals 
                     
-                    delta = (p2 * q2) - w.loc[0,'Balance']
+                    delta = round((q2 * p2),3) - w.loc[0,'Balance']
                     w.loc[0,'Bank_Loan'] = w.loc[0,'Bank_Loan'] + delta 
                     w.loc[0,'Balance'] = w.loc[0,'Balance'] + delta
                     
@@ -94,7 +94,8 @@ def buy_metal(client,metal,quantity):
                 
                 #Register the cash outflow
                 
-                w.loc[0,'Outflow'] = w.loc[0,'Outflow'] + round((q2 * p2),3)                
+                w.loc[0,'Outflow'] = w.loc[0,'Outflow'] + round((q2 * p2),3)
+                w.loc[0,'Balance'] = w.loc[0,'Balance'] - round((q2 * p2),3)                    
                 df.loc[i,'Quantity']  = 10000 - quantity
                 
                 #Calculate the selling price with a profit of 5%
@@ -104,7 +105,7 @@ def buy_metal(client,metal,quantity):
                 #Register cash inflow and new balance
                 
                 w.loc[0,'Inflow'] = w.loc[0,'Inflow'] + p
-                w.loc[0,'Balance'] = w.loc[0,'Inflow'] - w.loc[0,'Outflow']
+                w.loc[0,'Balance'] = w.loc[0,'Balance'] + p
                 
                 #Succesful transaction
                 
