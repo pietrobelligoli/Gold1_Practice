@@ -4,12 +4,11 @@ def get_balance():
     df_wallet = pd.read_csv (r'csv_file/wallet.csv')
 
     # Inventory balance
-    for i in range(0,len(inventory)):
-        total_value = inventory.iloc[i]['Quantity'] * inventory.iloc[i]['Price']
-        print(inventory.iloc[i]['Metals'], 'balance:', inventory.iloc[i]['Quantity'], 'grams,', total_value, 'EUR value.')
+    for i in range(0,len(df_inventory)):
+        print(df_inventory.iloc[i]['Metals'], 'balance:', df_inventory.iloc[i]['Quantity'], 'grams.')
     
     # Cash available
-    print('\nCash available:', wallet.iloc[0]['Balance'])
+    print('\nCash available:', df_wallet.iloc[0]['Balance'])
     
     
 get_balance()
