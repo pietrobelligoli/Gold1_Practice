@@ -1,6 +1,7 @@
 import pandas as pd
 import argparse
 import hashlib
+from email_validator import validate_email, EmailNotValidError
 
 # FUNCTION LOG-IN
 
@@ -326,7 +327,6 @@ def get_cvc():
     
 # FUNCTION ADD_USER
 
-from email_validator import validate_email, EmailNotValidError
 
 def add_user(email, password):
     
@@ -355,7 +355,7 @@ def add_user(email, password):
                 for i in range(len(db_users)):
                     if email == db_users.loc[i,'email']:
                         presence = True
-                        print('An existing account is already associated with this email'. \n)
+                        print('An existing account is already associated with this email. \n')
                 
                 if presence == False:
                     cp = check_password(password)
