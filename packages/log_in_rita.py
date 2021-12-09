@@ -3,6 +3,7 @@ import argparse
 import hashlib
 from email_validator import validate_email, EmailNotValidError
 
+
 # FUNCTION LOG-IN
 
 def log_in(email, password):
@@ -177,6 +178,8 @@ def get_number():
     
 def get_date():
     
+    from datetime import date
+    
     #Set some parameters for the while cycle
     
     cc = False
@@ -218,7 +221,7 @@ def get_date():
 
                 # dd/mm/YY
                 d1 = today.strftime("%d/%m/%Y")
-                ay=d1[6:]
+                ay=int(d1[6:])
                 
                 if len(m) <= 2 and len(y) == 4 and nm > 0 and nm < 13 and ny >= ay and ny < (ay + 6):
                     
@@ -416,7 +419,7 @@ def add_employee(email, password):
         #Check if the domain is the correct one
         
         if "@gold1.com" not in email:
-            print("Please enter an employee email. \n")
+            result = "Please enter an employee email. \n"
 
         else:
             check = False
@@ -426,7 +429,7 @@ def add_employee(email, password):
             for mail in db_employees["email"]:
                 if mail == email:
                     check = True
-                    print("This account is already registered. \n")
+                    result = "This account is already registered. \n"
                     break
 
             #Check if the email is in the one allowed to register as an emplyee
@@ -436,7 +439,7 @@ def add_employee(email, password):
                 for mail in df_employees["email"]:
                     if email == mail:
                         presence = True
-                        print('Your email allows you to register as an employee. \n')
+                        result = 'Your email allows you to register as an employee. \n'
                         
                         #Ask the employee to confirm the password he want to use
                         
@@ -449,7 +452,8 @@ def add_employee(email, password):
                             new_df = pd.DataFrame({"email": [email], "password": [digest_password]})
                             db_employees = db_employees.append(new_df)
                             db_employees.to_csv(r'csv_file/db_employees.csv', index = False)
-                            print("Registration was successful!. \n")
+                            result = "Registration was successful!. \n"
+                            
                         
                         break
                         
@@ -459,4 +463,7 @@ def add_employee(email, password):
                     
     except EmailNotValidError as e:
     
-        print(str(e))                      
+        print(str(e)) 
+    
+    
+    return result                   
