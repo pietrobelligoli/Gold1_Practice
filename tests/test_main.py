@@ -29,9 +29,14 @@ class TestInput(unittest.TestCase):
         self.assertEqual(log_in("roberto.celi@gmail.com", "Peru2021"), "user")
         self.assertEqual(log_in("pietro.belligoli@gold1.com", "Juice123456"), "employee")
         
-        #add employee
+        #add_employee
         self.assertTrue(add_employee("rita.ghilardi@gold1.com", "Peru2021"), None)
         
+        #add_user
+        self.assertTrue(add_user("francesca.paris@gmail.com", "Ciao!"), None)
+        
+        #buy_metal
+        self.assertTrue(add_employee("rita.ghilardi@gold1.com", "Peru2021"), None)
         
     #def test_wrong_values(self):
         # input wrong data
