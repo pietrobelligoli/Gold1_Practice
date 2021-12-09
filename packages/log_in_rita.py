@@ -412,6 +412,8 @@ def add_employee(email, password):
     
     #Check if the mail is valid format
     
+    result = False
+
     try: 
         valid = validate_email(email)
         email = valid.email
@@ -419,7 +421,8 @@ def add_employee(email, password):
         #Check if the domain is the correct one
         
         if "@gold1.com" not in email:
-            result = "Please enter an employee email. \n"
+            result = True
+            print("Please enter an employee email. \n")
 
         else:
             check = False
@@ -429,7 +432,8 @@ def add_employee(email, password):
             for mail in db_employees["email"]:
                 if mail == email:
                     check = True
-                    result = "This account is already registered. \n"
+                    result = True
+                    print("This account is already registered. \n")
                     break
 
             #Check if the email is in the one allowed to register as an emplyee
@@ -439,7 +443,8 @@ def add_employee(email, password):
                 for mail in df_employees["email"]:
                     if email == mail:
                         presence = True
-                        result = 'Your email allows you to register as an employee. \n'
+                        result = True
+                        print('Your email allows you to register as an employee. \n')
                         
                         #Ask the employee to confirm the password he want to use
                         
@@ -452,7 +457,8 @@ def add_employee(email, password):
                             new_df = pd.DataFrame({"email": [email], "password": [digest_password]})
                             db_employees = db_employees.append(new_df)
                             db_employees.to_csv(r'csv_file/db_employees.csv', index = False)
-                            result = "Registration was successful!. \n"
+                            result = True
+                            print("Registration was successful!. \n")
                             
                         
                         break
@@ -460,10 +466,10 @@ def add_employee(email, password):
 
                 if presence == False: 
                     print("We are sorry, this email is not allowed to register as an employee. \n")
+        
+        return result                   
+
                     
     except EmailNotValidError as e:
     
-        print(str(e)) 
-    
-    
-    return result                   
+        print(str(e))
