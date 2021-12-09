@@ -467,9 +467,10 @@ def add_employee(email, password):
                 if presence == False: 
                     print("We are sorry, this email is not allowed to register as an employee. \n")
         
-        return result                   
 
                     
     except EmailNotValidError as e:
     
         print(str(e))
+    
+    return result                   
