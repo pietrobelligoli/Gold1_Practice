@@ -9,8 +9,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from packages.log_in_rita import log_in 
 from packages.log_in_rita import add_user
-from packages.get_balance import get_balance
 from packages.log_in_rita import add_employee
+from packages.buy_metals import buy_metal
 
 class Test(unittest.TestCase):
 
@@ -31,32 +31,37 @@ class Test(unittest.TestCase):
         self.f_password_employee = "Heidi1"
         
         #add_user function
-        #self.new_mail_user = "eva.castelli@gmail.com"
-        #self.new_pass_user = "Pallocchio"
+        self.new_mail_user = "eva.castelli@gmail.com"
+        self.new_pass_user = "Pallocchio"
         
         #add_employee
         self.new_mail_employee = "marco.visentin@gold1.com"
         self.new_pass_employee = "Marco2000"
+
+        #add metals
+        self.mail_client = "giada.rovari@gmail.com"
+        self.metal = "Silver"
+        self.quantity = "1"
+
         
         
-    #def test_log_in(self):
-        #self.assertTrue(log_in(self.t_email_user, self.t_password_user))
-        #self.assertFalse(log_in(self.f_email_user, self.f_password_user))
-        #self.assertTrue(log_in(self.t_email_employee, self.t_password_employee))
-        #self.assertFalse(log_in(self.f_email_employee, self.f_password_employee))
+    def test_log_in(self):
+        self.assertTrue(log_in(self.t_email_user, self.t_password_user))
+        self.assertFalse(log_in(self.f_email_user, self.f_password_user))
+        self.assertTrue(log_in(self.t_email_employee, self.t_password_employee))
+        self.assertFalse(log_in(self.f_email_employee, self.f_password_employee))
         
         
-    #def test_add_user(self):
-        #self.assertTrue(add_user(self.new_mail_user, self.new_pass_user))
+    def test_add_user(self):
+        self.assertTrue(add_user(self.new_mail_user, self.new_pass_user))
         
         
     def test_add_employee(self):  
         self.assertTrue(add_employee(self.new_mail_employee, self.new_pass_employee))
         
         
-    #def test_get_balance(self):
-        #self.assertTrue
-    
+    def test_buy_metals(self):
+        self.assertTrue(buy_metal(self.new_mail_user, self.metal, self.quantity))  
     
     
 if __name__ == "__main__":

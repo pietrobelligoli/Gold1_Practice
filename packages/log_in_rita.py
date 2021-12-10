@@ -335,7 +335,7 @@ def add_user(email, password):
     
     db_users = pd.read_csv(r'csv_file/db_users.csv')
     
-    #To be discussed with Rita
+    result = False
     
     if "@" not in email:
         print("Please enter a valid email. \n")
@@ -378,6 +378,7 @@ def add_user(email, password):
                                 if cvc == None:
                                     stop = True
                                 else:
+                                    result = True
                                     print('Thank you, you successfully registered into our website and from now you will be allowed to buy precious metals from us. \n')
                         
                     if stop == True:
@@ -398,8 +399,8 @@ def add_user(email, password):
 
             except EmailNotValidError as e:
                 print(str(e))
-
-        
+            
+    return result
 
 
 
@@ -421,7 +422,6 @@ def add_employee(email, password):
         #Check if the domain is the correct one
         
         if "@gold1.com" not in email:
-            result = True
             print("Please enter an employee email. \n")
 
         else:
@@ -432,7 +432,6 @@ def add_employee(email, password):
             for mail in db_employees["email"]:
                 if mail == email:
                     check = True
-                    result = True
                     print("This account is already registered. \n")
                     break
 
@@ -443,7 +442,6 @@ def add_employee(email, password):
                 for mail in df_employees["email"]:
                     if email == mail:
                         presence = True
-                        result = True
                         print('Your email allows you to register as an employee. \n')
                         
                         #Ask the employee to confirm the password he want to use

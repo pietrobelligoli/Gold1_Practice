@@ -1,12 +1,14 @@
 from packages.get_prices import get_prices
 import time
+import pandas as pd
+
 
 def ask_cvc(user):
     
     df = pd.read_csv (r'csv_file/info_users.csv')    
     check = False
     
-    #Serch the cvc using the username. This value will be find by construction, because we already did the loh in
+    #Search the cvc using the username. This value will be find by construction, because we already did the log in
     
     for i in range(len(df.index)):
         if df.loc[i,'email'] == user:
@@ -24,7 +26,7 @@ def ask_cvc(user):
         
         #Check if the input was empty
         
-        if number:
+        if number :
             
             #Check if the input contains only numerical characters
             
@@ -67,7 +69,12 @@ def buy_metal(client,metal,quantity):
     #Open the inventory
     df = pd.read_csv (r'csv_file/inventory.csv')
     
+    quantity = int(quantity)
+
     presence = False
+
+    result = False
+
     #Check if the metal is traded by us
     for i in range(0,5):
         if df.loc[i,'Metal'] == metal:
@@ -115,9 +122,10 @@ def buy_metal(client,metal,quantity):
                 w.loc[0,'Balance'] = w.loc[0,'Balance'] + p
                 
                 #Succesful transaction
-                
+
+                result = True
                 print('Thank you so much, you have just bought ', quantity, 'g of ', metal, ' at the price of ', p, ' EUR. \n')
-        
+
         else:
             
             #Buy new metal to have the inventory full
@@ -208,7 +216,7 @@ def buy_metal(client,metal,quantity):
             #Close the register
             register.to_csv(r'csv_file/register.csv', index=False)
     
+    return result
     
-        
     df.to_csv(r'csv_file/inventory.csv', index=False)
     w.to_csv(r'csv_file/wallet.csv', index=False)
