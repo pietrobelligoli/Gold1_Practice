@@ -57,7 +57,7 @@ def ask_cvc(user):
         #Check if the user tried more than 3 times to enter the input
         
         elif i >= 2:
-            print('Fatal error, the credit card number is not on the correct format and you reached the limit of chances that you had. Please try again to register to our website. \n')
+            print('Fatal error, the credit card cvc is not on the correct format or is not correct, and you reached the limit of chances that you had. Please try again to register to our website. \n')
             break
             
         #Increase i if the input was wrong
