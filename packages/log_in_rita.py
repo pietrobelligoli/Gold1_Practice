@@ -337,6 +337,7 @@ def add_user(email, password):
     
     result = False
     
+    
     if "@" not in email:
         print("Please enter a valid email. \n")
         
@@ -354,6 +355,7 @@ def add_user(email, password):
                 #Check if the email is already registered
                 
                 presence = False
+                
                 
                 for i in range(len(db_users)):
                     if email == db_users.loc[i,'email']:
