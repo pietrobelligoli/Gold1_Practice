@@ -342,7 +342,7 @@ def add_user(email, password):
         
     else: 
         suffix = email.split("@")[1]
-   
+        
         if suffix == "gold1.com":
             print("Invalid email, please register as a user. \n")
         

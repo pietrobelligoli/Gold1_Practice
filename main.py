@@ -17,8 +17,8 @@ def parse_arguments():
     parser.add_argument("-au","--add_user", help="Register as a user with the username and password that you provide", action="store_true")                    
     parser.add_argument("-ae","--add_employee", help="Register as an employee with the username and password that you provide", action="store_true")
     
-    parser.add_argument("-bm","--buy_metal", default= None, help="Specify the metal that you want to buy (this argument must be used with bq)", type = str)
-    parser.add_argument("-bg","--buy_grams", default= None, help="Specify the grams that you want to buy (this argument must be used with bm)", type = int)  
+    parser.add_argument("-bum","--buy_metal", default= None, help="Specify the metal that you want to buy (this argument must be used with bq)", type = str)
+    parser.add_argument("-bug","--buy_grams", default= None, help="Specify the grams that you want to buy (this argument must be used with bm)", type = str)  
     
     parser.add_argument("-rr","--read_register", help="Method only for employees: show the register of all transactions", action="store_true")
     parser.add_argument("-gb","--get_balance", help="Method only for employees: show the inventory and the cash balance", action="store_true")
@@ -72,9 +72,8 @@ if log != None:
         elif grams == None:
             print('To buy metals you have to specify the grams you want using --buy_grams. \n')
         else:
-            metal = metal.lower()
-            newmetal = metal[:1].upper()+metal[1:]
-            buy_metal(username,newmetal,grams)
+            
+            buy_metal(username,metal,grams)
             
         if rr == True or gb == True or pb == True:
             print('You tried to call a function that your user is not allowed to lunch. As a user you are only allowed to buy metals from our company. \n')

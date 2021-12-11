@@ -40,7 +40,12 @@ def ask_cvc(user):
             if valid == True:
                 nnumber = int(number)
                 if len(number) == 3 and nnumber > 0 and nnumber <= 999:
-                    good = True
+                    if nnumber == stored:                    
+                        good = True
+                    else:
+                        print('Sorry, the cvc is not correct. \n')
+                else:
+                    print('We are sorry but the cvc was not in the correct format. It should be a number composed of 3 digits. \n')
         
         else:
             print('Error, you did not enter any number. \n')
@@ -69,7 +74,10 @@ def buy_metal(client,metal,quantity):
     #Open the inventory
     df = pd.read_csv (r'csv_file/inventory.csv')
     
-    quantity = int(quantity)
+    #Ensure that the first letter of the metal is big
+    metal = metal.lower()
+    nmetal = metal[:1].upper()+metal[1:]
+    metal=nmetal
 
     presence = False
 
@@ -81,17 +89,35 @@ def buy_metal(client,metal,quantity):
             presence = True
             break
             
+    #Check if quantity contains only numbers, and so it is an integer
+    
+    int_number = '0123456789'
+    valid = True
+    for n in quantity:
+        if n not in int_number:
+            valid = False
+            break
+            
     if presence == False:
         #Say that we don't trade the metal
         print ('We are sorry, the metal that you want to buy is not traded by us. \n You can buy from us Gold, Silver, Platinum, Palladium and Rhodium. \n')
    
-    elif quantity > 1000:
+    
+    elif valid == False:
+        print('Error, you typed a letter or a special character in the quantity, we are able to trade only grams. \n')
+        
+    elif int(quantity) == 0:
+        print('Sorry, but it is impossible to buy 0 grams of any metal. Please insert a valid number. \n')
+        
+    elif int(quantity) > 1000:
         #Say if the quantity requested is too much
-        print('We are sorry, we are not able to supply you this amount of ', metal, '. We can supply you at most 10 kg. \n')
-   
+        print('We are sorry, we are not able to supply you this amount of ', metal, '. We can supply you at most 1 kg. \n')
+        
     else:
-   
-        #Metal and quantity are ok, we open the wallet
+        
+        #Metal and quantity are ok, we open the wallet and change quantity to an integer
+        
+        quantity = int(quantity)
    
         w = pd.read_csv (r'csv_file/wallet.csv')
         
@@ -193,6 +219,7 @@ def buy_metal(client,metal,quantity):
                     #Succesful transaction
                     
                     time.sleep(5)
+                    result = True
                     print('Thank you so much, you have just bought ', quantity, 'g of ', metal, ' at the price of ', p, ' EUR. \n')
             
         if success == True:                
