@@ -40,28 +40,28 @@ class Test(unittest.TestCase):
 
         #add metals
         self.mail_client = "giada.rovari@gmail.com"
-        self.metal = "Silver"
-        self.quantity = "1"
+        self.metal = "silver"
+        self.quantity = ""
 
         
         
-    def test_log_in(self):
-        self.assertTrue(log_in(self.t_email_user, self.t_password_user))
-        self.assertFalse(log_in(self.f_email_user, self.f_password_user))
-        self.assertTrue(log_in(self.t_email_employee, self.t_password_employee))
-        self.assertFalse(log_in(self.f_email_employee, self.f_password_employee))
+    #def test_log_in(self):
+        #self.assertTrue(log_in(self.t_email_user, self.t_password_user))
+        #self.assertFalse(log_in(self.f_email_user, self.f_password_user))
+        #self.assertTrue(log_in(self.t_email_employee, self.t_password_employee))
+        #self.assertFalse(log_in(self.f_email_employee, self.f_password_employee))
         
         
-    def test_add_user(self):
-        self.assertTrue(add_user(self.new_mail_user, self.new_pass_user))
+    #def test_add_user(self):
+        #self.assertTrue(add_user(self.new_mail_user, self.new_pass_user))
         
         
-    def test_add_employee(self):  
-        self.assertTrue(add_employee(self.new_mail_employee, self.new_pass_employee))
+    #def test_add_employee(self):  
+        #self.assertTrue(add_employee(self.new_mail_employee, self.new_pass_employee))
         
         
     def test_buy_metals(self):
-        self.assertTrue(buy_metal(self.new_mail_user, self.metal, self.quantity))  
+        self.assertTrue(buy_metal(self.mail_client, self.metal, self.quantity))  
     
     
 if __name__ == "__main__":
