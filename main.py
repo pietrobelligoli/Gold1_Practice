@@ -11,19 +11,17 @@ from packages.get_balance import get_balance
  
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument("username", help="Insert the username that you want to use")
-    parser.add_argument("password", help="Insert the password that you want to use")
+    parser.add_argument("username", help="Insert the username that you want to use", default=None)
+    parser.add_argument("password", help="Insert the password that you want to use", default=None)
     
-    parser.add_argument("-au","--add_user", help="Register as a user with the username and password that you provide", action="store_true")                    
-    parser.add_argument("-ae","--add_employee", help="Register as an employee with the username and password that you provide", action="store_true")
+    parser.add_argument("-au","--add_user", help="Register as a user with the username and password that you provide", action="store_true", default=False)                    
+    parser.add_argument("-ae","--add_employee", help="Register as an employee with the username and password that you provide", action="store_true", default=False)
     
-    parser.add_argument("-bum","--buy_metal", default= None, help="Specify the metal that you want to buy (this argument must be used with bq)", type = str)
-    parser.add_argument("-bug","--buy_grams", default= None, help="Specify the grams that you want to buy (this argument must be used with bm)", type = str)  
+    parser.add_argument("-bm","--buy_metal", default= None, help="Specify the metal that you want to buy. The metals that we trade are Gold, Silver, Palladium, Platinum, Rhodium. (this argument must be used with bq) ", type = str, choices=["Gold","Silver","Palladium","Platinum","Rhodium"])
+    parser.add_argument("-bg","--buy_grams", default= None, help="Specify the grams that you want to buy. (this argument must be used with bm)", type = int)  
     
-    parser.add_argument("-rr","--read_register", help="Method only for employees: show the register of all transactions", action="store_true")
-    parser.add_argument("-gb","--get_balance", help="Method only for employees: show the inventory and the cash balance", action="store_true")
-    parser.add_argument("-pb","--pay_bank", help="Method only for employees: pay back the bank if there are debts", action="store_true")
-    
+    parser.add_argument("-ea","--employee_actions", help="Actions that only and employee can do. Code allowed: rr to read the register; gb to get the balance of wallet and inventory; pb to bay the bank loan", default=None, type= str, choices=["rr","gb","pb"])
+       
     args = parser.parse_args()
     return args
     
@@ -38,6 +36,7 @@ addemployee=arg.add_employee
 rr=arg.read_register
 gb=arg.get_balance
 pb=arg.pay_bank
+e=arg.employee_actions
 
 log = None
 print('\n')
@@ -51,19 +50,20 @@ else:
 if log != None:
     if log == 'employee':
         s=False
-        if rr:
-            read_register()
-            s=True
-        if gb:
-            get_balance()
-            s=True
-        if pb:
-            pay_loan()
-            s=True
         
         if metal != None or grams != None:
             print('Sorry but as an employee you are not allowed to buy metals from our company. \n')
-        elif s == False:
+            
+        if e=="rr":
+            read_register()
+            s=True
+        elif e=="gb":
+            get_balance()
+            s=True
+        elif e=="pb":
+            pay_loan()
+            s=True     
+        elif e == None:
             print('You succesfully logged in as a employee, but you have to type other arguments to do something. \n')
         
     elif log == 'user':
@@ -75,5 +75,5 @@ if log != None:
             
             buy_metal(username,metal,grams)
             
-        if rr == True or gb == True or pb == True:
+        if e != None:
             print('You tried to call a function that your user is not allowed to lunch. As a user you are only allowed to buy metals from our company. \n')
