@@ -1,71 +1,8 @@
 from packages.get_prices import get_prices
+from packages.check_cvc import ask_cvc
 import time
 import pandas as pd
 
-
-def ask_cvc(user):
-    
-    df = pd.read_csv (r'csv_file/info_users.csv')    
-    check = False
-    
-    #Search the cvc using the username. This value will be find by construction, because we already did the log in
-    
-    for i in range(len(df.index)):
-        if df.loc[i,'email'] == user:
-            stored = df.loc[i,'cvc']
-            break
-            
-    #Ask to confirm the cvc
-    
-    i=0
-
-    while check == False:
-        number = str(input('Please insert the CVC of your credit card number to confirm the purchase. \n'))
-        
-        good = False
-        
-        #Check if the input was empty
-        
-        if number :
-            
-            #Check if the input contains only numerical characters
-            
-            int_number = '0123456789'
-            valid = True
-            for n in number:
-                if n not in int_number:
-                    print('Error, you typed a letter or a special character. \n')
-                    valid = False
-                    break 
-            if valid == True:
-                nnumber = int(number)
-                if len(number) == 3 and nnumber > 0 and nnumber <= 999:
-                    if nnumber == stored:                    
-                        good = True
-                    else:
-                        print('Sorry, the cvc is not correct. \n')
-                else:
-                    print('We are sorry but the cvc was not in the correct format. It should be a number composed of 3 digits. \n')
-        
-        else:
-            print('Error, you did not enter any number. \n')
-            
-        if good == True:
-            check = True
-            print('The number was accepted. \n')
-
-        #Check if the user tried more than 3 times to enter the input
-        
-        elif i >= 2:
-            print('Fatal error, the credit card cvc is not on the correct format or is not correct, and you reached the limit of chances that you had. Please try again to register to our website. \n')
-            break
-            
-        #Increase i if the input was wrong
-        
-        elif good == False:                    
-            i = i + 1
-    
-    return check
     
 def buy_metal(client,metal,quantity):
     import pandas as pd
@@ -92,8 +29,9 @@ def buy_metal(client,metal,quantity):
     #Check if quantity contains only numbers, and so it is an integer
     
     int_number = '0123456789'
+    sq=str(quantity)
     valid = True
-    for n in quantity:
+    for n in sq:
         if n not in int_number:
             valid = False
             break
@@ -241,9 +179,11 @@ def buy_metal(client,metal,quantity):
             register = register.append(add, ignore_index=True)
 
             #Close the register
-            register.to_csv(r'csv_file/register.csv', index=False)
+            register.to_csv(r'csv_file/register.csv', index=False)   
+    
+        w.to_csv(r'csv_file/wallet.csv', index=False)
+        
+    df.to_csv(r'csv_file/inventory.csv', index=False)
+    
     
     return result
-    
-    df.to_csv(r'csv_file/inventory.csv', index=False)
-    w.to_csv(r'csv_file/wallet.csv', index=False)

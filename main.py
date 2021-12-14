@@ -1,9 +1,9 @@
 #! /usr/bin/env python3
 import argparse
 
-from packages.log_in_rita import log_in 
-from packages.log_in_rita import add_employee 
-from packages.log_in_rita import add_user 
+from packages.log_in import log_in 
+from packages.add_employee import add_employee 
+from packages.add_user import add_user 
 from packages.buy_metals import buy_metal 
 from packages.pay_loan import pay_loan
 from packages.read_register import read_register 
@@ -33,9 +33,6 @@ metal=arg.buy_metal
 grams=arg.buy_grams
 adduser=arg.add_user
 addemployee=arg.add_employee
-rr=arg.read_register
-gb=arg.get_balance
-pb=arg.pay_bank
 e=arg.employee_actions
 
 log = None
