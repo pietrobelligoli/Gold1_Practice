@@ -27,6 +27,6 @@ def get_prices():
         prices={}
 
         for key in rates.keys():
-        prices[conversion[key]]=round((rates[key]/oz),3)
+            prices[conversion[key]]=round((rates[key]/oz),3)
 
     return(s,prices)
