@@ -37,7 +37,8 @@ def add_user(email, password):
                 for i in range(len(db_users)):
                     if email == db_users.loc[i, 'email']:
                         presence = True
-                        print('An existing account is already associated with this email. \n')
+                        print('The email is already associated'
+                              'to an account. \n')
 
                 if presence is False:
                     cp = check_password(password)
@@ -46,26 +47,28 @@ def add_user(email, password):
                         stop = True
                     else:
                         number = get_number()
-                        if number == None:
+                        if number is None:
                             stop = True
                         else:
                             date = get_date()
-                            if date == None:
+                            if date is None:
                                 stop = True
                             else:
                                 cvc = get_cvc()
-                                if cvc == None:
+                                if cvc is None:
                                     stop = True
                                 else:
                                     result = True
-                                    print('Thank you, you successfully registered into our website and from now you will be allowed to buy precious metals from us. \n')
+                                    print('You successfully registered. Now'
+                                          'You are allowed to buy metals. \n')
 
-                    if stop == True:
-                        print('We are sorry but something in the registration process went wrong. Please try again. \n')
+                    if stop is True:
+                        print('Something in the registration process'
+                              'went wrong. Please try again. \n')
                     else:
 
                         # Generate the random ID without call too many times
-                        # Generate a random in an interval where I know that there are no valid ID
+                        # Generate a random in an interval with no valid ID
                         # ID with min 1 and max 99999999
 
                         existing_id = list(db_users['ID'])
@@ -93,7 +96,8 @@ def add_user(email, password):
                             if Id not in list_id:
                                 new = True
 
-                        digest_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+                        digest_password = hashlib.sha256(password.encode
+                                                         ('utf-8')).hexdigest()
                         new = pd.DataFrame({"ID": [Id], "email": [email],
                                             "password": [digest_password]})
                         db_users = db_users.append(new)

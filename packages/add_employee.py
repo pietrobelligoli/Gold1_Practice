@@ -52,7 +52,8 @@ def add_employee(email, password):
 
                             # Register the employee
 
-                            digest_pass = hashlib.sha256(password.encode('utf-8')).hexdigest()
+                            digest_pass = hashlib.sha256(password.encode
+                                                         ('utf-8')).hexdigest()
                             new_df = pd.DataFrame({"email": [email],
                                                   "password": [digest_pass]})
                             db_employees = db_employees.append(new_df)

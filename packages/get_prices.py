@@ -6,27 +6,29 @@ def get_prices():
     endpoint = 'latest'
     access_key = 'o65ww2g1zd18fqm7euy9h2at766a9amft1r6srflwfle1gqu6lx029fshbfu'
 
-    resp = requests.get('https://metals-api.com/api/'+endpoint+'?access_key='+access_key+'&base='+base_currency+'&symbols='+symbol)
+    resp = requests.get('https://metals-api.com/api/' + endpoint
+                        + '?access_key=' + access_key + '&base='
+                        + base_currency + '&symbols=' + symbol)
     s = resp.json()['success']
-    
-    if s == False:
+
+    if s is False:
         proces = None
-    
+
     else:
-    
-        rates=resp.json()['rates']
 
-        oz=28.3495
+        rates = resp.json()['rates']
 
-        conversion={'XAU' : 'Gold',
-                  'XAG' : 'Silver',
-                  'XPD' : 'Palladium',
-                  'XPT' : 'Platinum',
-                  'XRH' : 'Rhodium'}
+        oz = 28.3495
 
-        prices={}
+        conversion = {'XAU': 'Gold',
+                      'XAG': 'Silver',
+                      'XPD': 'Palladium',
+                      'XPT': 'Platinum',
+                      'XRH': 'Rhodium'}
+
+        prices = {}
 
         for key in rates.keys():
-            prices[conversion[key]]=round((rates[key]/oz),3)
+            prices[conversion[key]] = round((rates[key]/oz), 3)
 
-    return(s,prices)
+    return(s, prices)
