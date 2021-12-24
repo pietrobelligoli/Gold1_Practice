@@ -11,24 +11,19 @@ from packages.log_in_rita import add_employee
 class Test(unittest.TestCase):
     def setUp(self):
     
-        # add_employee
         self.mail_empl = "marco.visentin@gold1.com"
         self.pass_empl = "Marco2000"
         self.f_mail_empl = "rita"
         self.f_pass_empl = []
-        
+            
         
     def test_add_employee(self):
-        self.assertTrue(add_employee(self.mail_empl, self.pass_empl))
+        self.assertTrue(add_employee(self.mail_empl, self.pass_empl))  
         self.assertFalse(add_employee(self.f_mail_empl, self.f_pass_empl))
         self.assertFalse(add_employee(self.mail_empl, self.f_pass_empl))
         self.assertFalse(add_employee(self.f_mail_empl, self.pass_empl))
         
         
-    def tearDown(self):
-        
-    
-        
-        
+      
 if __name__ == "__main__":
     unittest.main()

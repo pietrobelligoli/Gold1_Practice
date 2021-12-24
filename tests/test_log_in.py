@@ -3,11 +3,10 @@ import unittest
 import sys
 import os
 
-from packages.log_in_rita import log_in
-
 # add parent folder to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from packages.log_in_rita import log_in
 
 class Test(unittest.TestCase):
     
