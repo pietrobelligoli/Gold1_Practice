@@ -2,7 +2,7 @@ import time
 import pandas as pd
 from packages.get_prices import get_prices
 
-from packages.check_cvc import ask_cvc
+
 
 def buy_metal(client, metal, quantity, check):
 

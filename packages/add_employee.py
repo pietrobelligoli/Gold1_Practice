@@ -4,8 +4,6 @@ import hashlib
 from email_validator import validate_email
 from email_validator import EmailNotValidError
 
-from packages.check_password import check_password
-
 
 def add_employee(email, password):
 

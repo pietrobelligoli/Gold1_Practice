@@ -13,6 +13,7 @@ from packages.get_number import get_number
 from packages.get_date import get_date
 from packages.get_cvc import get_cvc
 from packages.check_cvc import ask_cvc 
+from packages.verify_user import verify_user 
  
 def parse_arguments():
     parser = argparse.ArgumentParser()
@@ -40,55 +41,87 @@ adduser=arg.add_user
 addemployee=arg.add_employee
 e=arg.employee_actions
 
+#First of all, we check if the user wants to register or log in
 log = None
 print('\n')
+
 if addemployee is True:
+    
+    #The user wants to register as an employee, so we ask again the password
+    
     cp = check_password(password)
+    
     if cp is False:
         print('We are sorry, but the two password do not coincide. \n Please try again')
     
     else:    
+        #The two passwords were equal, so we proceed to the registration
+        #The validity of the email is different, so will be done by the function
+        
         add_employee(username,password)
         
 elif adduser is True:
-    cp = check_password(password)
-    if cp is False:
-        print('We are sorry, but the two password do not coincide. \n Please try again')
     
-    else:
-        number = get_number()
-        date = get_date()
-        cvc = get_cvc()
-        add_user(username,password, number, date, cvc)
+    #The user wants to register as a client, so we first of all verify the email
+    
+    valid_mail=verify_user(username)
+    
+    if valid_mail is True:
+    
+        #The email in in the correct format and allowed to be registered
+        #We check the password
+        
+        cp = check_password(password)
+        
+        if cp is True:
+            
+            #The two passwords are the same, we ask data on the credit card
+            #The functions on credit card control the format of input
+            
+            number = get_number()
+            date = get_date()
+            cvc = get_cvc()
+            add_user(username,password, number, date, cvc)
 else:
+
+    #The user is already registered and wants to log in 
+    
     log=log_in(username,password)
+
+#We enter the next steps only if the user was already registered
     
 if log != None:
     if log == 'employee':
-        s=False
+        
+        #We check if the employee gave the right commands and execute them
+        #The employee is allowed to use only one function per times
         
         if metal != None or grams != None:
             print('Sorry but as an employee you are not allowed to buy metals from our company. \n')
             
         if e=="rr":
             read_register()
-            s=True
+            
         elif e=="gb":
             get_balance()
-            s=True
+
         elif e=="pb":
             pay_loan()
-            s=True     
+   
         elif e == None:
             print('You succesfully logged in as a employee, but you have to type other arguments to do something. \n')
         
     elif log == 'user':
+    
+        #We check if the client gave both the commands and proceed with the purchase
+        
         if metal == None:
             print('To buy metals you have to specify them using --buy_metal. \n')
+        
         elif grams == None:
             print('To buy metals you have to specify the grams you want using --buy_grams. \n')
-        else:
-            
+        
+        else:            
             check_cvc = ask_cvc(username)
             buy_metal(username,metal,grams, check_cvc)
             
