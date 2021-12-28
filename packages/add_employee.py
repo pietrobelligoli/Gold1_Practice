@@ -3,6 +3,7 @@ import argparse
 import hashlib
 from email_validator import validate_email
 from email_validator import EmailNotValidError
+
 from packages.check_password import check_password
 
 
@@ -51,22 +52,17 @@ def add_employee(email, password):
                         print('You are allowed you to'
                               'register as an employee. \n')
 
-                        # Ask the employee to confirm the password
+                        # Register the employee
 
-                        password_check = check_password(password)
-                        if password_check is True:
-
-                            # Register the employee
-
-                            digest_pass = hashlib.sha256(password.encode
-                                                         ('utf-8')).hexdigest()
-                            new_df = pd.DataFrame({"email": [email],
-                                                  "password": [digest_pass]})
-                            db_employees = db_employees.append(new_df)
-                            db_employees.to_csv(r'csv_file/db_employees.csv',
-                                                index=False)
-                            result = True
-                            print("Registration was successful!. \n")
+                        digest_pass = hashlib.sha256(password.encode
+                                                     ('utf-8')).hexdigest()
+                        new_df = pd.DataFrame({"email": [email],
+                                              "password": [digest_pass]})
+                        db_employees = db_employees.append(new_df)
+                        db_employees.to_csv(r'csv_file/db_employees.csv',
+                                            index=False)
+                        result = True
+                        print("Registration was successful!. \n")
 
                         break
 

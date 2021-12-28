@@ -7,7 +7,12 @@ from packages.add_user import add_user
 from packages.buy_metals import buy_metal 
 from packages.pay_loan import pay_loan
 from packages.read_register import read_register 
-from packages.get_balance import get_balance 
+from packages.get_balance import get_balance
+from packages.check_password import check_password
+from packages.get_number import get_number
+from packages.get_date import get_date
+from packages.get_cvc import get_cvc
+from packages.check_cvc import ask_cvc 
  
 def parse_arguments():
     parser = argparse.ArgumentParser()
@@ -37,10 +42,24 @@ e=arg.employee_actions
 
 log = None
 print('\n')
-if addemployee == True:
-    add_employee(username,password)
-elif adduser == True:
-    add_user(username,password)
+if addemployee is True:
+    cp = check_password(password)
+    if cp is False:
+        print('We are sorry, but the two password do not coincide. \n Please try again')
+    
+    else:    
+        add_employee(username,password)
+        
+elif adduser is True:
+    cp = check_password(password)
+    if cp is False:
+        print('We are sorry, but the two password do not coincide. \n Please try again')
+    
+    else:
+        number = get_number()
+        date = get_date()
+        cvc = get_cvc()
+        add_user(username,password, number, date, cvc)
 else:
     log=log_in(username,password)
     
@@ -70,7 +89,8 @@ if log != None:
             print('To buy metals you have to specify the grams you want using --buy_grams. \n')
         else:
             
-            buy_metal(username,metal,grams)
+            check_cvc = ask_cvc(username)
+            buy_metal(username,metal,grams, check_cvc)
             
         if e != None:
             print('You tried to call a function that your user is not allowed to lunch. As a user you are only allowed to buy metals from our company. \n')

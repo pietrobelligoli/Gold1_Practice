@@ -28,6 +28,8 @@ def ask_cvc(user):
         if cvc_df.loc[i, 'ID'] == user_id:
             stored = cvc_df.loc[i, 'cvc']
             break
+            
+    print('The cvc should be ', stored, type(stored))
 
     # Ask to confirm the cvc
 
@@ -55,7 +57,7 @@ def ask_cvc(user):
             if valid is True:
                 nnumber = int(number)
                 if len(number) == 3 and nnumber > 0 and nnumber <= 999:
-                    if nnumber is stored:
+                    if nnumber == stored:
                         good = True
                     else:
                         print('Sorry, the cvc is not correct. \n')

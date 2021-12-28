@@ -1,16 +1,12 @@
 import pandas as pd
 import argparse
 import hashlib
+import random
 from email_validator import validate_email
 from email_validator import EmailNotValidError
-from packages.check_password import check_password
-from packages.get_number import get_number
-from packages.get_date import get_date
-from packages.get_cvc import get_cvc
-import random
 
 
-def add_user(email, password):
+def add_user(email, password, number, date, cvc):
 
     ''' This function add a user to the csv "db_users.csv",
         that is necessary for an employee to log in, and to register
@@ -20,8 +16,8 @@ def add_user(email, password):
         the right format, is not already registered and is not a mail
         of an employee.    
     '''
+    
     db_users = pd.read_csv(r'csv_file/db_users.csv')
-
     result = False
 
     if "@" not in email:
@@ -49,31 +45,14 @@ def add_user(email, password):
                               'to an account. \n')
 
                 if presence is False:
-                    cp = check_password(password)
-                    stop = False
-                    if cp is False:
-                        stop = True
-                    else:
-                        number = get_number()
-                        if number is None:
-                            stop = True
-                        else:
-                            date = get_date()
-                            if date is None:
-                                stop = True
-                            else:
-                                cvc = get_cvc()
-                                if cvc is None:
-                                    stop = True
-                                else:
-                                    result = True
-                                    print('You successfully registered. Now'
-                                          'You are allowed to buy metals. \n')
-
-                    if stop is True:
+                
+                    if number is None or date is None or cvc is None:
                         print('Something in the registration process'
                               'went wrong. Please try again. \n')
                     else:
+                        result = True
+                        print('You successfully registered. Now'
+                              ' you are allowed to buy metals. \n')
 
                         # Generate the random ID without call too many times
                         # Generate a random in an interval with no valid ID
