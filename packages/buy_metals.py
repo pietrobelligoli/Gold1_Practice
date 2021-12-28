@@ -5,6 +5,14 @@ import pandas as pd
 
 
 def buy_metal(client, metal, quantity):
+
+    ''' This function get called after the check done by the log_in function,
+        so we are sure that the user is correctly registered into our database.
+        The function buy sell to the client the amount of metal requested by
+        the client. If we do not have enough metal in our inventory, this function 
+        call "get_prices" to refill the inventory before the user's purchase.
+    '''
+    
     import pandas as pd
     from datetime import date
 

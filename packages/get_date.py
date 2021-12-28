@@ -1,4 +1,11 @@
+from datetime import date
+
 def get_date():
+
+    ''' This is one of the functions called during the registering of a new
+        user. This function ask the user to insert the expiring date of its 
+        credit card (maximum 3 times), check its validity and return it.
+    '''
 
     from datetime import date
 

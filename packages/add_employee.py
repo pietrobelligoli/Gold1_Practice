@@ -8,6 +8,12 @@ from packages.check_password import check_password
 
 def add_employee(email, password):
 
+    ''' This function add an employee to the csv "db_employees.csv"
+        that is necessary for an employee to log in.
+        This function control that the email of the employee
+        is allowed and that the employee is not already registered.    
+    '''
+
     df_employees = pd.read_csv(r'csv_file/employees.csv')
     db_employees = pd.read_csv(r'csv_file/db_employees.csv')
 

@@ -3,6 +3,12 @@ import pandas as pd
 
 def ask_cvc(user):
 
+    ''' This function get called after the check done by the log_in function,
+        so we are sure that the user is correctly registered into our database.
+        The function take the cvc of the user stored in the database, ask the user
+        to insert it again (maximum 3 times) and verify it.
+    '''
+
     user_df = pd.read_csv(r'csv_file/db_users.csv')
     cvc_df = pd.read_csv(r'csv_file/info_users.csv')
     check = False

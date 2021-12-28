@@ -4,11 +4,17 @@ import hashlib
 from email_validator import validate_email
 from email_validator import EmailNotValidError
 
-# FUNCTION LOG-IN
-
-
 def log_in(email, password):
 
+    ''' This function takes the email and password given by the 
+        user or employee and verify that they correspond to the 
+        one stored into our database. The function return a values
+        that is "None" if the password was wrong or the email not 
+        registered, "employee" if the email was the correct one of 
+        an employee of "user" if the email was the correct one of 
+        a user.
+    '''
+    
     db_employees = pd.read_csv(r'csv_file/db_employees.csv')
     db_users = pd.read_csv(r'csv_file/db_users.csv')
 

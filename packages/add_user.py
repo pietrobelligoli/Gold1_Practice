@@ -12,6 +12,14 @@ import random
 
 def add_user(email, password):
 
+    ''' This function add a user to the csv "db_users.csv",
+        that is necessary for an employee to log in, and to register
+        the informations of the new user's credit card on the dataset
+        "info_users.csv". 
+        This function control that the email of the new user is in 
+        the right format, is not already registered and is not a mail
+        of an employee.    
+    '''
     db_users = pd.read_csv(r'csv_file/db_users.csv')
 
     result = False

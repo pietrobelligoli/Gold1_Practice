@@ -1,5 +1,11 @@
 def check_password(pw):
 
+    ''' This function get called by the two registering functions.
+        The aim of this function is to ask to the user to insert
+        again the password that will be registered, like all 
+        website does.
+    '''
+    
     # Set some parameters for the while cycle
 
     c = False

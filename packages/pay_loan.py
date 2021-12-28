@@ -1,6 +1,13 @@
-def pay_loan():
+import pandas as pd
 
-    import pandas as pd
+def pay_loan():
+    
+    ''' This function can be called only by employees. The 
+        function check if there are money due to banks, check
+        the availability of money of the company and repay 
+        part or all the bank loan using all the available money.
+    '''
+    
     w = pd.read_csv(r'csv_file/wallet.csv')
 
     # Control if there are bank loan to be repaid
