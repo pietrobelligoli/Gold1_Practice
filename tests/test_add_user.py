@@ -6,7 +6,7 @@ import os
 # add parent folder to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from packages.log_in_rita import add_user
+from packages.add_user import add_user
 
 class Test(unittest.TestCase):
     def setUp(self):
