@@ -32,6 +32,6 @@ def check_password(pw):
         elif pw != check:
             i = i + 1
             print('The two password are not the same,'
-                  'enter again the password. \n')
+                  ' enter again the password. \n')
 
     return c

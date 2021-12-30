@@ -7,7 +7,7 @@ from email_validator import EmailNotValidError
 
 def verify_user(email):
 
-    ''' This function control that the email of the new user is in 
+    ''' This function controls that the email of the new user is in 
         the right format, is not already registered and is not a mail
         of an employee.    
     '''
@@ -37,7 +37,7 @@ def verify_user(email):
                     if email == db_users.loc[i, 'email']:
                         presence = True
                         print('The email is already associated'
-                              'to an account. \n')
+                              ' to an account. \n')
 
                 if presence is False:
                     result = True

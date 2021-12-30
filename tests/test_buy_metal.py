@@ -10,19 +10,34 @@ from packages.buy_metals import buy_metal
 
 class Test(unittest.TestCase):
     def setUp(self):
-    
-        self.mail = "giada.rovari@gmail.com"
-        self.metal = "Silver"
-        self.quantity = "1"
-        self.f_mail = "rita"
-        self.f_metal = "Wood"
-        self.f_quantity = "0"
         
-    def test_buy_metal(self):
-        #self.assertTrue(buy_metal(self.mail, self.metal, self.quantity))
-        #self.assertFalse(buy_metal(self.mail, self.f_metal, self.quantity))
-        #self.assertFalse(buy_metal(self.mail, self.metal, self.f_quantity))
-        self.assertFalse(buy_metal(self.f_mail, self.metal, self.quantity))
+        #valid inputs
+        self.mail1 = "giada.rovari@gmail.com"
+        self.mail2 = "robertoceli@gmail.com"
+        self.metal1 = "Silver"
+        self.metal2 = "silver"
+        self.quantity1 = "1"
+        self.quantity2 = "1000"
+        self.check = True
+        
+        # invalid inputs
+        self.f_metal1 = "Wood"
+        self.f_metal2 = ""
+        self.f_quantity1 = "-2"
+        self.f_quantity2 = "0"
+        self.f_check = False
+        
+    def test_valid_inputs(self):
+        self.assertTrue(buy_metal(self.mail1, self.metal1, self.quantity1, self.check))
+        self.assertTrue(buy_metal(self.mail2, self.metal2, self.quantity2, self.check))
+        
+        
+    def test_invalid_inputs(self):
+        self.assertFalse(buy_metal(self.mail1, self.f_metal1, self.quantity1, self.check))
+        self.assertFalse(buy_metal(self.mail1, self.metal1, self.f_quantity1, self.check))
+        self.assertFalse(buy_metal(self.mail1, self.f_metal2, self.quantity1, self.check))
+        self.assertFalse(buy_metal(self.mail1, self.metal1, self.f_quantity2, self.check))
+        self.assertFalse(buy_metal(self.mail1, self.metal1, self.quantity1, self.f_check))
 
 
 if __name__ == "__main__":

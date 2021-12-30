@@ -61,7 +61,7 @@ def buy_metal(client, metal, quantity, check):
     elif int(quantity) > 1000:
         # Say if the quantity requested is too much
         print('We are sorry, we are not able to supply'
-              'you this amount of ', metal, '. We can supply'
+              ' you this amount of ', metal, '. We can supply'
               'you at most 1 kg. \n')
 
     else:

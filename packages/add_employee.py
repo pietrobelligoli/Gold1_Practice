@@ -47,7 +47,7 @@ def add_employee(email, password):
                 for mail in df_employees["email"]:
                     if email == mail:
                         presence = True
-                        print('You are allowed you to'
+                        print('You are allowed to '
                               'register as an employee. \n')
 
                         # Register the employee
